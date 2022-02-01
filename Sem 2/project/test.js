@@ -16,8 +16,6 @@ var winUser = 0;
 var winPc = 0;
 var playP = 0;
 
-// CODE START
-
 // INTRO
 
 console.log('Jokenpô Javascript v1.0');
