@@ -16,7 +16,6 @@ const prompt = require('prompt-sync')();
 let rodadas;
 let numeroJogadores;
 let replay;
-let position = 1;
 let jogador = {
     nome: '',
     dado: '',
@@ -123,16 +122,13 @@ Ele tirou: ${jogadores[x].dado}`);
     console.log(
         '----------------------------------------------------------------',
     );
-    console.table(jogadoresResult);
-    for (x = 0; x < numeroJogadores; x++) {
-        console.log(
-            `${position}º Lugar: ${jogadoresResult[x].nome} com ${jogadoresResult[x].cont} vitórias.`,
-        );
-        if (jogadoresResult[x].cont != jogadoresResult[x + 1].cont) {
-            position++;
-        }
-    }
+    console.log(
+        `1º Lugar: ${jogadoresResult[0].nome} com ${jogadoresResult[0].cont} vitórias.`,
+    );
 
+    console.log(
+        '----------------------------------------------------------------',
+    );
     do {
         console.log(`Querem jogar novamente?
         1)Sim               2)Não`);
@@ -148,25 +144,3 @@ Ele tirou: ${jogadores[x].dado}`);
         break;
     }
 } while (true);
-
-// console.log(jogadores)
-// console.log(jogadores[0])
-// console.log(jogadores[1])
-
-///////////////////////////////
-
-// const lista = [];
-
-// function Pessoa(nome, idade, sexo) {
-//     this.nome = nome;
-//     this.idade = idade;
-//     this.sexo = sexo;
-// }
-
-// let pessoa = new Pessoa('leo', 24, 'M');
-// lista.push(pessoa);
-
-// pessoa = new Pessoa('duda', 15, 'F');
-// lista.push(pessoa);
-
-// console.log(lista);
