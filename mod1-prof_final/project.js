@@ -26,39 +26,39 @@ const prompt = require('prompt-sync')();
 
 // DEFINED VARIABLES
 
-let timeNow = 7; // max 22 start 7 sempre
+let timeNow = 7; // max 22 start 7 sempre => Hora do Dia
 let day = 1; // max 7
-let mode = 0;
-let action = ``;
+let mode = 0; // Dificuldade
+let action;
 let death = false;
-let max = false;
-const actions = [
-    `fazer comida`,
-    `comer fastfood`,
-    `estudar`,
-    `assistir serie`,
-    `trabalhar`,
-    `passear`,
-    `fazer exercicio`,
-    `tomar banho`,
-];
+// const actions = [
+//     `fazer comida`,
+//     `comer fastfood`,
+//     `estudar`,
+//     `assistir serie`,
+//     `trabalhar`,
+//     `passear`,
+//     `fazer exercicio`,
+//     `tomar banho`,
+// ];
+
+let progresso = 0;
 
 const player = {
     Name: '',
     Saciedade: 5,
     Stamina: 5,
-    Social: 5,
+    Felicidade: 5,
     Higiene: 5,
-    Lazer: 5,
+    Projeto: `${progresso} %`,
 };
 
-console.log(player.Saciedade);
-
-let projeto = 0;
+// console.log(player.Saciedade);
+let Trabalho = 0;
 
 console.log(`Projeto Final - Modulo 1
 `);
-player.Nome = prompt(`Digite seu nome: `);
+player.Name = prompt(`Digite seu nome: `);
 
 do {
     var start = +prompt(
@@ -77,11 +77,9 @@ if (start == 0) {
     Nesse jogo, seu objetivo é entregar um projeto para 
 a sua empresa, seu prazo é de 7 dias. Porém, existem obstáculos
 no caminho! 
-
     Você terá que conciliar suas necessidades diárias
 com o seu trabalho, você sofrerá penalidades caso qualquer um dos status
 (saciedade, Lazer, Stamina, Higiene) chegar a 0!
-
 No Fácil: Você perderá 1 dia.
 No Médio: Você perderá 2 dias.
 No Difícil: Você perderá o jogo.
@@ -117,7 +115,7 @@ for (d = 1; d < 8; d++) {
 
     for (timeNow = 7; timeNow < 22; ) {
         // Contador de Horas
-        if (timeNow >= 7 && timeNow < 23 && day < 8 && death == false) {
+        if (timeNow >= 7 && timeNow < 23 && day < 8) {
             console.log(
                 `${dayTime()} ${
                     player.Nome
@@ -138,6 +136,7 @@ for (d = 1; d < 8; d++) {
 
                 if (action == 0) {
                     console.table(player);
+                    showStatus();
                 } else if (isNaN(action) || action < 1 || action > 8) {
                     console.log(`
 -------------------------------------------------------------
@@ -156,7 +155,7 @@ for (d = 1; d < 8; d++) {
                     console.table(player);
                 } else if (action == 3) {
                     estudar();
-                    projeto += 10;
+                    progresso += 10;
                     console.table(player);
                 } else if (action == 4) {
                     serie();
@@ -174,12 +173,9 @@ for (d = 1; d < 8; d++) {
                     banho();
                     console.table(player);
                 }
-                // checkStatus();
+                CheckStatus();
                 if (death == true) {
                     break;
-                }
-                if (max == true) {
-                    continue;
                 }
                 break;
             } while (true);
@@ -226,18 +222,22 @@ function GetTime(horas) {
             timeNow++;
             {
                 player.Saciedade -= 1;
-                player.Social -= 1;
+                player.Felicidade -= 1;
                 player.Higiene -= 1;
+                player.Stamina -= 1;
                 // CheckStatus()
             }
         } else if (timeNow == 22) {
             timeNow = 7;
             player.Saciedade -= 1.5 * mode;
             player.Stamina += 15 / mode;
-            if (player.Stamina > 10) {
-                player.Stamina == 10;
+            if (player.Stamina > 9) {
+                player.Stamina = 10;
             }
-            console.log(`Você Dormiu`);
+            console.log(`
+            Você Dormiu.
+            Saciedade - ${1.5 * mode};
+            Stamina + ${15 / mode} (Stamina Máx = 10)`);
             break;
         }
     }
@@ -248,109 +248,101 @@ function showStatus() {
     // Saciedade
     if (player.Saciedade < 2) {
         console.log(
-            `Sua saciedade é ${player.Saciedade}. Você está Morrendo de Fome.`,
+            `Sua Saciedade está em ${player.Saciedade}. Você está Morrendo de Fome.`,
         );
     } else if (player.Saciedade > 1 && player.Saciedade < 5) {
         console.log(
-            `Sua saciedade é ${player.Saciedade}. Você está com Muita Fome.`,
+            `Sua Saciedade está em ${player.Saciedade}. Você está com Muita Fome.`,
         );
     } else if (player.Saciedade > 4 && player.Saciedade < 7) {
         console.log(
-            `Sua saciedade é ${player.Saciedade}. Você está sentindo Fome.`,
+            `Sua Saciedade está em ${player.Saciedade}. Você está sentindo Fome.`,
         );
     } else if (player.Saciedade > 6 && player.Saciedade < 10) {
         console.log(
-            `Sua saciedade é ${player.Saciedade}. Você está satisfeito.`,
+            `Sua Saciedade está em ${player.Saciedade}. Você está satisfeito.`,
+        );
+    } else if (player.Saciedade > 9) {
+        player.Saciedade = 10;
+        console.log(
+            `Sua Saciedade está em ${player.Saciedade}. Você está entupido`,
         );
     }
 
     // Stamina
     if (player.Stamina < 2) {
-        console.log(`Você está Exausto.`);
+        console.log(
+            `Sua Vitalidade está em ${player.Stamina}. Você está Exausto.`,
+        );
     } else if (player.Stamina > 1 && player.Stamina < 5) {
-        console.log(`Você está Muito Cansado.`);
+        console.log(
+            `Sua Vitalidade está em ${player.Stamina}. Você está Muito Cansado.`,
+        );
     } else if (player.Stamina > 4 && player.Stamina < 7) {
-        console.log(`Você começa a se sentir Cansado.`);
+        console.log(
+            `Sua Vitalidade está em ${player.Stamina}. Você começa a se sentir Cansado.`,
+        );
     } else if (player.Stamina > 6 && player.Stamina < 10) {
-        console.log(`Você está Descansado.`);
-    }
-
-    // Social
-    if (player.Social < 2) {
-        console.log(`Você está a ponto de Desistir da vida.`);
-    } else if (player.Social > 1 && player.Social < 5) {
-        console.log(`Você só quer ficar trancado no seu quarto.`);
-    } else if (player.Social > 4 && player.Social < 7) {
-        console.log(`Você está desanimado.`);
-    } else if (player.Social > 6 && player.Social < 10) {
-        console.log(`Você está feliz.`);
-    }
-
-    //
-}
-function CheckStatus() {
-    death = false;
-    max = false;
-    //Teste Fome
-    if (player.Saciedade == 0) {
-        console.log(`Você não levou a sério os limites do seu corpo...
-        
-        Você desmaiou de Fome!
-        
-        `);
-        return (death = true);
-    } else if (player.Saciedade > 9) {
-        player.Saciedade = 10;
-        console.log(`Sua saciedade é ${player.Saciedade}. Você está entupido`);
-        return (max = true);
-    }
-
-    // Teste Cansaço
-    if (player.Stamina == 0) {
-        console.log(`Você não levou a sério os limites do seu corpo...
-        
-        Você colaps pelo Cansaço!
-        `);
-        return (death = true);
+        console.log(
+            `Sua Vitalidade está em ${player.Stamina}. Você está Descansado.`,
+        );
     } else if (player.Stamina > 9) {
-        console.log(`Você está tremendo de tanta Energia.`);
+        player.Stamina = 10;
+        console.log(
+            `Sua Stamina está em ${player.Stamina}. Você está tremendo de tanta Energia.`,
+        );
     }
-    // Teste Social
-    if (player.Social == 0) {
-        console.log(`Você não levou a sério os limites da sua Mente...
-            
-        Você atenta contra a sua própria vida!
-            `);
-        return (death = true);
-    } else if (player.Social > 9) {
-        console.log(`Você está Radiante de Alegria.`);
-    }
-    // Teste Higine
-    if (player.Higiene == 0) {
-        console.log(`Você não levou a sério os limites do seu corpo...
 
-        Você caiu Doente!
-        `);
-        return (death = true);
-    } else if (player.Higiene < 2) {
-        console.log(`Você está com Febre Alta e dores no corpo.`);
+    // Felicidade
+    if (player.Felicidade < 2) {
+        console.log(
+            `Sua Felicidade está em ${player.Felicidade}. Você está a ponto de Desistir da vida.`,
+        );
+    } else if (player.Felicidade > 1 && player.Felicidade < 5) {
+        console.log(
+            `Sua Felicidade está em ${player.Felicidade}. Você só quer ficar trancado no seu quarto.`,
+        );
+    } else if (player.Felicidade > 4 && player.Felicidade < 7) {
+        console.log(
+            `Sua Felicidade está em ${player.Felicidade}. Você está desanimado.`,
+        );
+    } else if (player.Felicidade > 6 && player.Felicidade < 10) {
+        console.log(
+            `Sua Felicidade está em ${player.Felicidade}. Você está feliz.`,
+        );
+    } else if (player.Felicidade > 9) {
+        player.Felicidade = 10;
+        console.log(
+            `Sua Felicidade está em ${player.Felicidade}. Você está Radiante de Alegria.`,
+        );
+    }
+
+    // Higiene
+    if (player.Higiene < 2) {
+        console.log(
+            `Sua Higiene está em ${player.Higiene}. Você está com irritações e pequenas feridas na pele.`,
+        );
     } else if (player.Higiene > 1 && player.Higiene < 5) {
-        console.log(`Você está Muito Cansado.`);
+        console.log(
+            `Sua Higiene está em ${player.Higiene}. Isso começa a afetar a sua saúde.`,
+        );
     } else if (player.Higiene > 4 && player.Higiene < 7) {
-        console.log(`Você começa a se sentir Cansado.`);
+        console.log(
+            `Sua Higiene está em ${player.Higiene}. Você começa a se sentir sujo.`,
+        );
     } else if (player.Higiene > 6 && player.Higiene < 10) {
-        console.log(`Você está Descansado.`);
+        console.log(
+            `Sua Higiene está em ${player.Higiene}. Você se sente Limpo e saudável.`,
+        );
     } else if (player.Higiene > 9) {
-        console.log(`Você está tremendo de tanta Energia.`);
+        player.Higiene = 10;
+        console.log(
+            `Sua Higiene está em ${player.Higiene}. Você está Extremamente limpo e Saudável.`,
+        );
     }
-    // // Teste Trabalho
-    // if (player.Social == 0) {
-    //     console.log(`Você não levou a sério os limites do seu corpo...
 
-    //     Você morreu de Cansaço!
-    //     `);
-    //     return (death = true);
-    // } else if (player.Social < 2) {
+    // // trabalho
+    // if (player.Social < 2) {
     //     console.log(`Você está Exausto.`);
     // } else if (player.Social > 1 && player.Social < 5) {
     //     console.log(`Você está Muito Cansado.`);
@@ -358,7 +350,79 @@ function CheckStatus() {
     //     console.log(`Você começa a se sentir Cansado.`);
     // } else if (player.Social > 6 && player.Social < 10) {
     //     console.log(`Você está Descansado.`);
-    // } else if (player.Social > 9) {
+    // }
+}
+function CheckStatus() {
+    death = false;
+    max = false;
+    //Teste Fome
+    if (player.Saciedade < 1) {
+        player.Saciedade = 0;
+        console.log(`Você não levou a sério os limites do seu corpo...
+        
+        Sua Saciedade chegou a ${player.Saciedade}. Você desmaiou de Fome!
+        
+        `);
+        return (death = true);
+    } else if (player.Saciedade > 9) {
+        player.Saciedade = 10;
+        console.log(
+            `Sua Saciedade está em ${player.Saciedade}. Você está entupido`,
+        );
+    }
+
+    // Teste Cansaço
+    if (player.Stamina < 1) {
+        player.Stamina = 0;
+        console.log(`Você não levou a sério os limites do seu corpo...
+        
+        Sua Stamina chegou a ${player.Stamina}. Você colapsa pelo Cansaço!
+        `);
+        return (death = true);
+    } else if (player.Stamina > 9) {
+        player.Stamina = 10;
+        console.log(
+            `Sua Stamina está em ${player.Stamina}. Você está tremendo de tanta Energia.`,
+        );
+    }
+
+    // Teste Felicidade
+    if (player.Felicidade < 1) {
+        player.Felicidade = 0;
+        console.log(`Você não levou a sério os limites da sua Mente...
+            
+        Sua Felicidade chegou a ${player.Felicidade}. Você atenta contra a sua própria vida!
+            `);
+        return (death = true);
+    } else if (player.Felicidade > 9) {
+        player.Felicidade = 10;
+        console.log(
+            `Sua Felicidade está em ${player.Felicidade}. Você está Radiante de Alegria.`,
+        );
+    }
+
+    // Teste Higine
+    if (player.Higiene < 1) {
+        player.Higiene = 0;
+        console.log(`Você não levou a sério os limites do seu corpo...
+        Sua Higiene chegou a ${player.Higiene}. Você foi consumido pela Doença.
+        `);
+        return (death = true);
+    } else if (player.Higiene > 9) {
+        player.Higiene = 10;
+        console.log(
+            `Sua Higiene está em ${player.Higiene}. Você está Extremamente limpo e Saudável.`,
+        );
+    }
+
+    // // Teste Trabalho
+    // if (player.Social == 0) {
+    //     console.log(`Você não levou a sério os limites do seu corpo...
+
+    //     Você morreu de Cansaço!
+    //     `);
+    //     return (death = true);
+    // }else if (player.Social > 9) {
     //     console.log(`Você está tremendo de tanta Energia.`);
     // }
 }
@@ -376,23 +440,53 @@ function dayTime() {
 }
 function comer() {
     // Ação de comer
-    GetTime(2);
-    player.Saciedade += 1.5 / mode + 2;
+    GetTime(3);
+    player.Saciedade += 1.5 / mode + 3;
+    player.Higiene += 2 / mode + 3;
+    player.Felicidade += 2;
+    console.log(`
+    Você faz a sua comida. 
+    Levou 3h para fazer e comer, mas ela é muito mais Saudável.
+    Saciedade + ${1.5 / mode}
+    Higiene + ${1 / mode}
+    Felicidade - 1
+    Stamina - 3
+                    `);
 }
 
 function fastfood() {
     // Ação de comer fastfood
-    GetTime(2);
-    player.Saciedade += 1.5 / mode + 2;
-    player.Higiene -= 1 / mode;
+    GetTime(1);
+    player.Saciedade += 1.5 / mode + 1;
+    player.Higiene -= 1 * mode + 1;
+    player.Felicidade += 1;
+    console.log(`
+    Você pediu para entregarem a Comida. 
+    Levou só 1h para chegar e comer, não é tão saudável quanto a comida caseira.
+    Pelo menos foi mais rápido
+    Saciedade + ${1.5 / mode}
+    Higiene - ${1 * mode}
+    Stamina - 1
+                    `);
 }
 
 function estudar() {
     // Ação de estudar
     GetTime(2);
-    player.Social -= 1.5 / mode + 2;
-    player.Stamina -= 1.5 / mode + 2;
-    (projeto += 0), 5;
+    player.Felicidade -= 1 * mode + 2;
+    player.Stamina -= 1 * mode + 2;
+    progresso += 10;
+    console.log(`
+    Você tirou um tempo para se dedicar ao Projeto. 
+    Foram 2h intensas de estudo. 
+    Sua cabeça estava latejando ao final mas houve algum progresso.
+    
+    Projeto + 10%
+    Felicidade - ${1 * mode}
+    Stamina - ${1 * mode}
+    Saciedade - 2
+    Higiene - 2
+                    `);
 }
 
 function serie() {
@@ -405,16 +499,16 @@ function serie() {
 function trabalhar() {
     // Ação de trabalhar
     GetTime(2);
-    player.Social -= 1.5 / mode + 2;
+    player.Felicidade -= 1.5 / mode + 2;
     player.Stamina -= 1.5 / mode + 2;
     player.Lazer -= 0.5 / mode + 2;
-    projeto++;
+    progresso++;
 }
 
 function passear() {
     // Ação de passear
     GetTime(2);
-    player.Social += 1.5 / mode + 2;
+    player.Felicidade += 1.5 / mode + 2;
     player.Stamina -= 1 / mode + 2;
     player.Lazer += 0.5 / mode + 2;
 }
@@ -422,7 +516,7 @@ function passear() {
 function exercicio() {
     // Ação de se exercitar
     GetTime(2);
-    player.Social += 1.5 / mode + 2;
+    player.Felicidade += 1.5 / mode + 2;
     player.Stamina -= 1 / mode + 2;
     player.Lazer += 0.5 / mode + 2;
     player.Higiene += 0.5 / mode + 2;
