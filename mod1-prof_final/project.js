@@ -326,7 +326,7 @@ function CheckStatus() {
         console.log(`Você está Radiante de Alegria.`);
     }
     // Teste Higine
-    if (player.Higiene) {
+    if (player.Higiene == 0) {
         console.log(`Você não levou a sério os limites do seu corpo...
 
         Você caiu Doente!
