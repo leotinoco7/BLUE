@@ -9,28 +9,62 @@ html,
 body {
     width: 100%;
     height: 100%;
-    /* background-image: url('../img/bg3.webp'); */
     background-color: white;
-    background-repeat: no-repeat;
-    background-size: cover;
 }
+
+/* TEXT CSS */
+
 #text1,
-#intro,
-#projeto,
 #about {
-    text-align: center;
-    color: black;
-    font-size: 50%;
+    text-align: left;
+    font-size: 150%;
 }
 
 #intro {
     text-align: left;
-    font-size: 100%;
-}
-#text2 {
-    font-size: 150%;
+    font-size: 120%;
+    margin-left: 5px;
 }
 
+#projeto {
+    text-align: center;
+    font-size: 120%;
+    margin-right: 5px;
+    background: gray;
+}
+
+#aboutproject {
+    font-size: 150%;
+    text-align: center;
+}
+#aboutme {
+    position: absolute;
+    top: 104%;
+    right: 0%;
+    text-align: right;
+    color: black;
+    font-size: 150%;
+    padding: 10px;
+}
+
+#titles {
+    font-size: 150%;
+    text-align: center;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    font-weight: bold;
+}
+
+#status {
+    font-weight: bold;
+    text-align: center;
+    position: absolute;
+    font-size: 150%;
+    right: 18%;
+    top: 74%;
+}
+
+/* IMG CSS */
 #bgmenu {
     background-image: url('../img/lolbg.jpg');
     opacity: 100%;
@@ -43,6 +77,24 @@ body {
     align-items: center;
 }
 
+#imagecontainer {
+    text-align: center;
+}
+
+#imagecontainer img {
+    width: 2%;
+    height: 2%;
+    margin: auto 0;
+    display: inline-block;
+}
+
+#logo {
+    height: 25px;
+    width: 25px;
+}
+
+/* LINKS ETC */
+
 a.link:hover {
     background-color: gray;
 }
@@ -53,32 +105,12 @@ a:visited {
     color: white;
 }
 
-.image1 {
-    margin-top: 2px;
-    align-items: center;
-    height: 30px;
-    width: 40px;
-}
-
-#aboutme {
-    text-align: right;
-    color: black;
-    font-size: 150%;
-    padding: 10px;
-}
-
-.aboutimages {
-}
-
-#logo {
-    height: 25px;
-    width: 25px;
-}
+/* LIST MENU */
 
 #menu ul {
+    position: fixed;
     text-align: left;
-    /* padding: 5px;
-    margin: 5px; */
+    width: 100%;
     list-style: none;
     font-size: 30px;
     background-color: black;
@@ -93,19 +125,25 @@ a:visited {
     display: inline-block;
 }
 
+/* OTHERS */
+
 #button1 {
     background-image: url('../img/bg3.webp');
-    border: 1px solid black;
     color: white;
-    padding: 5px 2px;
+    margin-top: 5px;
+    margin-bottom: 10px;
     text-align: center;
     text-decoration: none;
     display: inline-block;
-    font-size: 12px;
+    font-size: 20px;
+    cursor: pointer;
+    transition: all 1s ease;
+    border-radius: 1rem;
 }
 
-#blackbg {
-    background-color: solid black;
+#button1:hover {
+    transform: scale(1.1);
+    box-shadow: 0px 0px 10px 1px #ffffff50;
 }
 
 #posicionaMusica {
@@ -119,7 +157,20 @@ a:visited {
     z-index: 1000;
 }
 
-audio {
+#posicionaMusica audio {
     width: 300px;
-    height: 40px;
+    height: 38px;
+}
+
+#audioText {
+    opacity: 80%;
+    position: absolute;
+    list-style: none;
+    font-size: 15px;
+    color: white;
+    right: 16%;
+    top: 0%;
+    margin-left: 0px;
+    margin-top: 0px;
+    text-align: right;
 }
