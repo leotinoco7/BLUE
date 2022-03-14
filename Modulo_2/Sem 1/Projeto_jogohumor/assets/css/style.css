@@ -39,15 +39,6 @@ p {
     align-items: center;
 }
 
-.alignright {
-    font-size: 1rem;
-    position: absolute;
-    right: 0%;
-    top: 0%;
-    text-align: right;
-    align-items: right;
-}
-
 .menu a:hover {
     background-color: gray;
 }
@@ -56,9 +47,6 @@ p {
 .menu a:visited {
     text-decoration: none;
     color: white;
-}
-
-.menu audio {
 }
 
 .menu img {
@@ -74,13 +62,6 @@ p {
 }
 
 .menu ul li a {
-}
-
-.music {
-    /* flex-direction: row-reverse;
-    justify-self: center;
-    justify-content: space-between;
-    align-items: center; */
 }
 
 .backg {
