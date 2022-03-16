@@ -141,7 +141,10 @@ audio {
 
 .greybg img {
     margin-left: 1rem;
-    max-width: 320rem;
+    width: 90%;
+    max-width: 600px;
+    height: 90%;
+    max-height: 400px;
 }
 
 .smallimg {
@@ -153,6 +156,8 @@ audio {
     padding: 20px;
     width: 3%;
     height: 3%;
+    min-height: 50px;
+    min-width: 50px;
 }
 
 .about1 {
