@@ -8,12 +8,20 @@
         <title>Add</title>
     </head>
     <body>
-        <header><h1>adicionar pokemon</h1></header>
+        <header>
+            <h1>
+                <div class="menu">
+                    <% menu.forEach((item) => { %>
+                    <a href="<%= item.link %>"><p><%= item.title %></p></a>
+                    <% }) %>
+                </div>
+            </h1>
+        </header>
         <main>
             <section id="cadastro">
-                <p class="title">Cadastre um pokemon</section>p>
-                <p class="title"></p>
-                <form action="">
+                <p class="title">Cadastre um pokemon</p>
+
+                <form action="/add2" method="post">
                     <ul>
                         <li>
                             <label for="name">Nome: </label>
@@ -29,13 +37,19 @@
                         <li>
                             <label for="type">Tipo: </label>
                         </li>
-                        <li><input type="text" id="type" name="type" /></li>
+                        <li>
+                            <select id="cars" name="cars">
+                                <% type.forEach((type) => { %>
+                                <option value="<%= type %>"><%= type %></option>
+                                <% }) %>
+                            </select>
+                        </li>
                         <li>
                             <label for="image">Imagem: </label>
                         </li>
-                        <li><input type="text" id="image" name="iamge" /></li>
+                        <li><input type="text" id="image" name="image" /></li>
                         <li>
-                            <button id="btnc" type="submit">Send</button>
+                            <button id="btn" type="submit">Send</button>
                         </li>
                     </ul>
                 </form>

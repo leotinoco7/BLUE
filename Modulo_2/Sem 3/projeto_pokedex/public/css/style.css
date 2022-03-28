@@ -33,8 +33,29 @@ h2 {
 }
 
 header {
-    background-color: red;
+    background-color: navy;
     padding: 2rem;
+}
+
+header p {
+    color: white;
+    font-family: pokesolid;
+    font-size: 3rem;
+}
+
+header .menu {
+    text-align: left;
+    display: flex;
+    justify-content: flex-start;
+    align-content: flex-start;
+    flex-wrap: wrap;
+    margin-top: 0.5rem;
+    padding: 0.5rem;
+    gap: 1rem 3rem;
+}
+
+.menu p {
+    padding: 0rem 1rem;
 }
 
 main {
@@ -70,28 +91,64 @@ section#cards div.card h2 {
     margin-bottom: 1rem;
 }
 
+section#cadastro {
+    align-items: center;
+}
+
+section#cadastro ul li,
+section#cadastro select {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    padding: 0.3rem;
+    font-size: 1rem;
+}
+
+section#cadastro form input,
+section#cadastro select {
+    width: 50%;
+    padding: 0.5rem;
+    outline: none;
+    border: solid 1px navy;
+}
+
+section#cadastro form label {
+    margin: 0.3rem;
+}
+
+.title {
+    font-family: pokesolid;
+    text-align: center;
+    font-size: 3rem;
+    color: black;
+}
+
 p {
 }
 
-.container {
+section#cadastro form button {
+    margin-top: 1rem;
+    width: 25%;
+    padding: 0.5rem;
+    font-size: 1rem;
+    cursor: pointer;
+    background-color: lightgray;
+    border: solid 1px black;
+    transition: 0.5s;
 }
 
-.btn {
-}
-
-.btn:before {
-}
-.btn:after {
-}
-
-.btn:hover {
-}
-
-.btn:hover:before {
+section#cadastro form button:hover {
+    background-color: darkgrey;
 }
 
 a {
 }
 
 a:hover {
+    background-color: black;
+}
+
+a:link,
+a:visited {
+    text-decoration: none;
 }
