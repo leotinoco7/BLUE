@@ -32,26 +32,25 @@ const findPaletasService = async () => {
     return paletas;
 };
 
-const findPaletaByIdService = async id => {
+const findPaletaByIdService = async (id) => {
     const paleta = await Paleta.findById(id);
     return paleta;
 };
 
-const findPaletaByValorService = valor => {
-    return paletas.filter(paleta => paleta.preco <= valor);
+const findPaletaByValorService = (valor) => {
+    return paletas.filter((paleta) => paleta.preco <= valor);
 };
-
-const addPaletaService = async newPaleta => {
-    const paletaCriada = await Paleta.create(newPaleta);
+const addPaletaService = async (newPaleta) =>{
+    const paletaCriada = await Paleta.create(newPaleta)
     return paletaCriada;
 };
 
 const updatePaletaService = async (id, paletaEdited) => {
     const paletaAtualizada = await Paleta.findByIdAndUpdate(id, paletaEdited);
-    return paletaAtualizada;
+    return [paletaAtualizada,paletaEdited];
 };
 
-const deletePaletaService = async id => {
+const deletePaletaService = async (id) => {
     return await Paleta.findByIdAndDelete(id);
 };
 
@@ -61,5 +60,5 @@ module.exports = {
     findPaletaByValorService,
     addPaletaService,
     updatePaletaService,
-    deletePaletaService,
+    deletePaletaService
 };
